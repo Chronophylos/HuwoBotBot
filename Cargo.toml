@@ -1,0 +1,17 @@
+[package]
+name = "huwobotbot"
+version = "0.1.0"
+authors = ["Chronophylos <nikolai@chronophylos.com>"]
+edition = "2018"
+license = "MIT"
+
+[dependencies]
+anyhow      = "1.0"
+env_logger  = "0.7.0"
+lazy_static = "1.4.0"
+log         = "0.4"
+regex       = "1"
+ron         = "0.6.0"
+serde       = { version = "1.0.114", features = ["derive"] }
+tokio       = { version = "0.2", features = ["rt-threaded", "macros", "time"] }
+twitchchat  = "0.11"
