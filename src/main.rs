@@ -143,7 +143,10 @@ impl Bot {
                 self.wait_for_reply.store(false, Ordering::Relaxed);
                 self.retries.store(0, Ordering::Relaxed);
 
-                self.enter_dungeon_delayed(Duration::from_secs(3600));
+                // Wait for 1h and 3s. The cooldown for +enterdungeon is 1 hour.
+                // HuwoBot doesn't like beeing on time, but this bot is german,
+                // so we wait a additional 3 seconds.
+                self.enter_dungeon_delayed(Duration::from_secs(3603));
 
                 return true;
             }
@@ -161,7 +164,7 @@ impl Bot {
                 self.retries.store(0, Ordering::Relaxed);
 
                 self.enter_dungeon_delayed(Duration::from_secs(
-                    hours * 3600 + minutes * 60 + seconds,
+                    hours * 3600 + minutes * 60 + seconds + 3, // add a additional buffer of 3 seconds
                 ));
 
                 return true;
