@@ -50,6 +50,17 @@ impl Bot {
         info!("Joining target channel (name: {})", self.channel.as_str());
         writer.join(self.channel.clone()).await.unwrap();
 
+        // join everytime we reconnect
+        let mut reconnect = dispatcher.subscribe::<events::IrcReady>();
+        let mut writer = writer.clone();
+        let channel = self.channel.clone();
+        tokio::spawn(async move {
+            while let Some(msg) = reconnect.next().await {
+                info!("Reconnected as {}", msg.nickname);
+                writer.join(channel.clone()).await.unwrap()
+            }
+        });
+
         // Send initial message
         self.enter_dungeon();
 
