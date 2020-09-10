@@ -245,7 +245,7 @@ async fn main() -> Result<()> {
     //
     // this uses a retry strategy that'll reconnect with the connect.
     // using the `run_with_retry` method will consume the 'Status' types
-    let done = runner.run_with_retry(connector, twitchchat::RetryStrategy::on_timeout);
+    let done = runner.run_with_retry(connector, twitchchat::RetryStrategy::immediately);
 
     // and select over our two futures
     tokio::select! {
